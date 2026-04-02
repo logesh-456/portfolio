@@ -431,3 +431,71 @@ body {
   from { transform: scale(1.00) translateY(0px);  opacity: .70; }
   to   { transform: scale(1.15) translateY(-20px); opacity: 1.0; }
 }
+/* App.css or index.css */
+
+/* Define the base rich color palette and the animation variables */
+:root {
+  --color-offer-1: #4f46e5; /* Indigo */
+  --color-offer-2: #ff00ea; /* Magenta/Fuchsia */
+  --color-offer-3: #10b981; /* Emerald */
+  --color-offer-4: #4f46e5; /* Indigo (loop back) */
+}
+
+@keyframes border-glow-rotate {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* The core utility class */
+.glowing-offer-border {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Important: keeps the animation inside the border */
+  z-index: 0;
+  border-radius: 9999px; /* Matches Tailwind's rounded-full */
+}
+
+/* The actual glowing border (using a pseudo-element) */
+.glowing-offer-border::before {
+  content: '';
+  position: absolute;
+  z-index: -2; /* Place behind the content */
+  left: 50%;
+  top: 50%;
+  width: 150%; /* Make wider/taller so the corners are always covered during rotation */
+  height: 150%;
+  transform: translate(-50%, -50%);
+  
+  /* The rotating conic gradient defines the rich color loop */
+  background-image: conic-gradient(
+    from 0deg at 50% 50%,
+    var(--color-offer-1) 0%,
+    var(--color-offer-2) 30%,
+    var(--color-offer-3) 60%,
+    var(--color-offer-4) 100%
+  );
+  
+  /* Apply the rotation animation (spin the gradient) */
+  animation: border-glow-rotate 6s linear infinite;
+  
+  /* Rich, large external bloom */
+  filter: blur(8px) brightness(1.2);
+}
+
+/* The mask that defines the inner content area (creating the border look) */
+.glowing-offer-border::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 3px; /* THE BORDER THICKNESS (3px) */
+  background-color: #171717; /* Matches Tailwind's bg-neutral-900 (the page background) */
+  border-radius: 9999px; /* Matches rounded-full */
+  transition: background-color 0.3s ease;
+}
+
+/* Handle hover state to change the mask's opacity slightly, intensifying the visual */
+.glowing-offer-border:hover::after {
+  background-color: rgba(23, 23, 23, 0.9);
+}

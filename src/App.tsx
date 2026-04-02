@@ -23,6 +23,7 @@ import {
   Check,
   Github,
   Linkedin,
+  Instagram,
   MessageCircle,
   Menu,
   X,
@@ -126,6 +127,8 @@ const Navbar = () => {
   );
 };
 
+// ─── Hero Component with Glowing Offer Border ────────────────────────────────
+
 const Hero = () => (
   <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
     <div className="absolute top-1/4 -left-20 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px]" />
@@ -140,34 +143,108 @@ const Hero = () => (
         <p className="text-neutral-400 text-lg mb-8 max-w-lg">
           High-performance, responsive, and visually stunning web solutions tailored to help your brand grow in the digital landscape.
         </p>
-        <div className="flex flex-wrap gap-4">
+        
+        <div className="flex flex-wrap gap-4 items-center">
+          {/* Project Button */}
           <a href="#portfolio" className="px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-700 transition-all flex items-center gap-2 font-semibold glow">
             View Projects <ArrowRight size={18} />
           </a>
-          <a href="#contact" className="px-8 py-4 rounded-full border border-white/20 hover:bg-white/5 transition-all font-semibold">
-            OFFERS AVAILABLE
+          
+          {/* View Offers (Multi-color animated border from previous step) */}
+          <a href="#pricing" className="glowing-offer-border shadow-2xl group transition-all duration-300">
+            <span className="px-8 py-4 font-bold uppercase tracking-wider text-sm flex items-center justify-center text-white">
+              View Offers
+            </span>
+          </a>
+
+          {/* Updated Orange Glowing Contact Us Button */}
+          <a href="#contact" 
+            className="px-8 py-4 rounded-full bg-orange-600 hover:bg-orange-500 
+            text-white font-bold uppercase tracking-wider text-sm transition-all duration-300
+            shadow-[0_0_20px_rgba(249,115,22,0.4)] hover:shadow-[0_0_35px_rgba(249,115,22,0.6)]
+            border border-orange-400/30 hover:border-orange-300
+            active:scale-95"
+          >
+            Contact Us
           </a>
         </div>
       </motion.div>
+
       <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        className="relative hidden md:block"
-      >
-        <div className="relative z-10 glass p-4 rounded-3xl rotate-3 hover:rotate-0 transition-transform duration-500">
-          <img src={gymy} alt="Dashboard Preview" className="rounded-2xl shadow-2xl" />
-        </div>
-        <div className="absolute -top-10 -right-10 w-40 h-40 bg-purple-500/30 rounded-full blur-3xl" />
-      </motion.div>
+  initial={{ opacity: 0, scale: 0.9, y: 20 }}
+  animate={{ opacity: 1, scale: 1, y: 0 }}
+  transition={{ duration: 1 }}
+  className="relative hidden md:block"
+>
+  {/* The Floating Container */}
+  <motion.div
+    animate={{
+      y: [0, -25, 0],
+      rotateZ: [0, 1, 0, -1, 0],
+    }}
+    transition={{
+      duration: 6,
+      repeat: Infinity,
+      ease: "easeInOut",
+    }}
+    className="relative z-10 group"
+  >
+    {/* Animated Gradient Border (The "Hologram" Rim) */}
+    <div className="relative p-[2px] rounded-[2.5rem] overflow-hidden bg-white/10">
+      <motion.div 
+        animate={{ rotate: 360 }}
+        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-[-100%] bg-[conic-gradient(from_0deg,transparent_0deg,transparent_150deg,#3b82f6_180deg,transparent_210deg,transparent_360deg)] opacity-40 group-hover:opacity-100"
+      />
+      
+      <div className="relative bg-[#0a0a0a] rounded-[2.4rem] overflow-hidden border border-white/5">
+        <img 
+          src={gymy} 
+          alt="GenZBuild Preview" 
+          className="w-full h-auto scale-105 group-hover:scale-100 transition-transform duration-700 ease-out" 
+        />
+        
+        {/* Glass Reflection Sweep */}
+        <motion.div 
+          initial={{ x: '-100%' }}
+          animate={{ x: '200%' }}
+          transition={{ duration: 3, repeat: Infinity, repeatDelay: 2, ease: "easeInOut" }}
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12"
+        />
+      </div>
+    </div>
+
+    {/* Small Floating Technical Elements */}
+    <motion.div 
+      animate={{ x: [0, 10, 0], y: [0, -10, 0] }}
+      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+      className="absolute -top-6 -left-6 glass p-3 rounded-xl border border-blue-500/30 backdrop-blur-md z-20"
+    >
+      <div className="flex gap-1">
+        <div className="w-2 h-2 rounded-full bg-red-500" />
+        <div className="w-2 h-2 rounded-full bg-yellow-500" />
+        <div className="w-2 h-2 rounded-full bg-green-500" />
+      </div>
+    </motion.div>
+  </motion.div>
+
+  {/* Dynamic Shadow (Shrinks as image rises) */}
+  <motion.div 
+    animate={{ 
+      scale: [1, 0.8, 1],
+      opacity: [0.3, 0.1, 0.3] 
+    }}
+    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+    className="absolute -bottom-12 left-1/2 -translate-x-1/2 w-3/4 h-8 bg-blue-600/40 blur-[40px] rounded-[100%]"
+  />
+</motion.div>
     </div>
   </section>
 );
-
 const About = () => {
   const stats = [
     { label: 'Fast Delivery', value: '100%' },
-    { label: 'Modern UI', value: 'Premium' },
+    { label: 'Modern UI', value:'Premium' },
     { label: 'Responsive', value: 'All Devices' },
   ];
 
@@ -297,7 +374,7 @@ const Portfolio = () => {
   const projects = [
     { title: 'Restaurant-Website',   img: web, link: 'https://restaurant-rouge-mu.vercel.app/' },
     { title: 'Construction-Website', img: con, link: 'https://construction-opal-theta.vercel.app/' },
-    { title: 'Flex-Gym Website',     img: gym, link: 'https://gym-y48841yu2-logeshs-projects-02a320f3.vercel.app/' },
+    { title: 'Prime-Gym Website',     img: gym, link: 'https://prime-gym-blond.vercel.app/' },
   ];
   return (
     <section id="portfolio" className="py-24 bg-neutral-900/50">
@@ -332,8 +409,8 @@ const Portfolio = () => {
 
 const Pricing = () => {
   const plans = [
-    { name: 'Basic',    price: '₹2999',  features: ['Responsive Design','Normal SEO','3-Month Support','🎁BONUS-OFFER:whatsapp intergration'],                                          popular: false },
-    { name: 'Standard', price: '₹4999',  features: ['Premium-Design','Custom UI Design','2-Days delivery','6-Months Support','Contact Form','🎁BONUS-OFFER:whatsapp intergration'],                           popular: true  },
+    { name: 'Basic',    price: '₹2999',  features: ['Responsive Design','Upto 3 pages','Normal SEO','3-Month Support','🎁BONUS-OFFER:whatsapp intergration'],                                          popular: false },
+    { name: 'Standard', price: '₹4999',  features: ['Premium-Design', 'Upto 6 pages','Custom UI Design','2-Days delivery','6-Months Support','Contact Form','🎁BONUS-OFFER:whatsapp intergration'],                           popular: true  },
     { name: 'Premium',  price: '₹7999', features: ['E-commerce Ready','Advanced Animations','Speed Optimization','1-Year Support','Priority Hosting'],                popular: false },
   ];
   const scrollToContact = (planName: string) => {
@@ -380,7 +457,7 @@ const Pricing = () => {
 
 const Testimonials = () => {
   const reviews = [
-    { name: 'Arumugam', role: 'Owner, Southern Restaurant', text: 'Genzbuild transformed our online presence. The speed and design of our new landing page are incredible!', avatar:av },
+    { name: 'Jerome Joshuva', role: 'Owner, Southern Restaurant', text: 'Genzbuild transformed our online presence. The speed and design of our new landing page are incredible!', avatar:av },
     { name: 'Santhosh ravi',  role: 'Founder, Iron Construction',  text: 'Exceptional attention to detail. The UI is clean and our users love the smooth animations.',              avatar:av2 },
     { name: 'Akash',    role: 'Owner, Flux Gym',             text: 'Delivery was faster than expected and the quality is top-notch. Highly recommended for any startup.',     avatar: av3 },
   ];
@@ -388,7 +465,7 @@ const Testimonials = () => {
     <section className="py-24 bg-neutral-900/50">
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Client <span className="gradient-text">Success</span></h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Client <span className="gradient-text">Review</span></h2>
           <p className="text-neutral-400">Hear from the people we've worked with.</p>
         </div>
         <div className="grid md:grid-cols-3 gap-8">
@@ -470,13 +547,56 @@ const Contact = () => {
 };
 
 const Footer = () => (
-  <footer className="py-12 border-t border-white/10">
-    <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-      <div className="text-xl font-bold gradient-text">GenZBuild</div>
-      <div className="text-sm text-neutral-500">© {new Date().getFullYear()} GenZBuild.</div>
-      <div className="flex gap-6 text-sm font-medium">
-        <a href="#" className="hover:text-blue-400 transition-colors">Privacy Policy</a>
-        <a href="#" className="hover:text-blue-400 transition-colors">Terms of Service</a>
+  <footer className="py-12 border-t border-white/10 bg-neutral-950/50">
+    <div className="max-w-7xl mx-auto px-6">
+      <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+        
+        {/* Brand & Copyright */}
+        <div className="flex flex-col items-center md:items-start gap-2">
+          <div className="text-2xl font-bold gradient-text">GenZBuild</div>
+          <div className="text-sm text-neutral-500">
+            © {new Date().getFullYear()} GenZBuild. All rights reserved.
+          </div>
+        </div>
+
+        {/* Social Links */}
+        <div className="flex items-center gap-6">
+          <a 
+            href="https://github.com/logesh-456" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="p-3 rounded-xl glass hover:text-blue-400 transition-all hover:scale-110"
+            aria-label="GitHub"
+          >
+            <Github size={20} />
+          </a>
+          <a 
+            href="https://www.linkedin.com/in/logesh-a-a84303364" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="p-3 rounded-xl glass hover:text-blue-400 transition-all hover:scale-110"
+            aria-label="LinkedIn"
+          >
+            <Linkedin size={20} />
+          </a>
+          {/* Instagram Logo Added Here */}
+          <a 
+            href="https://www.instagram.com/genzbuild.in?igsh=MTk2YnMxeGVjdTJkbg==" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="p-3 rounded-xl glass hover:text-pink-500 transition-all hover:scale-110 hover:shadow-[0_0_15px_rgba(236,72,153,0.3)]"
+            aria-label="Instagram"
+          >
+            <Instagram size={20} />
+          </a>
+        </div>
+
+        {/* Legal Links */}
+        <div className="flex gap-8 text-sm font-medium text-neutral-400">
+          <a href="#" className="hover:text-blue-400 transition-colors">Privacy Policy</a>
+          <a href="#" className="hover:text-blue-400 transition-colors">Terms</a>
+        </div>
+
       </div>
     </div>
   </footer>
