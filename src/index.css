@@ -1,0 +1,433 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+/* THEME */
+/* ============================================================
+   GenZBuild — Animated Premium Background
+   Import this file in your main entry (e.g. index.css or main.tsx)
+   ============================================================ */
+
+/* ── Base page ── */
+/* ============================================================
+   GenZBuild — ULTRA RICH Animated Background v2
+   Palette: Electric Teal · Molten Gold · Cosmic Violet · Ice Cyan
+   Import in main.tsx:  import './background.css';
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --clr-base:     #020b12;
+  --clr-accent1:  #00d4aa;
+  --clr-accent2:  #f5a623;
+  --clr-accent3:  #6ee7f7;
+  --clr-accent4:  #ff6b6b;
+  --clr-violet:   #7c3aed;
+  --clr-emerald:  #059669;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0; padding: 0;
+  background: var(--clr-base);
+  color: #e8f4f8;
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   ROOT SHELL
+   ============================================================ */
+.premium-bg {
+  position: relative;
+  min-height: 100vh;
+  background: var(--clr-base);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Layer 0 — base gradient */
+.premium-bg::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  background:
+    radial-gradient(ellipse 140% 90% at  5%  5%,  rgba(0,180,140,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 120% 80% at 95% 10%,  rgba(245,166,35,0.14) 0%, transparent 50%),
+    radial-gradient(ellipse 100% 70% at 50% 95%,  rgba(124,58,237,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse  80% 60% at 80% 50%,  rgba(6,182,212,0.10)  0%, transparent 50%),
+    linear-gradient(160deg, #020b12 0%, #03111e 40%, #020c15 70%, #040a18 100%);
+}
+
+/* Layer 1 — film grain noise */
+.premium-bg::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -9;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  pointer-events: none;
+}
+
+/* ============================================================
+   AURORA RINGS  (dual counter-rotating)
+   ============================================================ */
+.aurora-wrap {
+  position: fixed;
+  inset: -60%;
+  width: 220%;
+  height: 220%;
+  z-index: -8;
+  pointer-events: none;
+}
+
+.aurora-ring1 {
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(
+    from 0deg at 40% 55%,
+    transparent            0deg,
+    rgba(0,212,170,0.28)  50deg,
+    transparent          110deg,
+    rgba(245,166,35,0.22) 165deg,
+    transparent          225deg,
+    rgba(124,58,237,0.20) 280deg,
+    transparent          340deg,
+    rgba(0,212,170,0.10)  360deg
+  );
+  filter: blur(100px);
+  animation: auroraSpin1 50s linear infinite;
+  will-change: transform;
+}
+
+.aurora-ring2 {
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(
+    from 180deg at 60% 45%,
+    transparent            0deg,
+    rgba(110,231,247,0.18) 60deg,
+    transparent           130deg,
+    rgba(255,107,107,0.15) 200deg,
+    transparent           265deg,
+    rgba(5,150,105,0.18)  310deg,
+    transparent           360deg
+  );
+  filter: blur(110px);
+  animation: auroraSpin2 65s linear infinite reverse;
+  will-change: transform;
+}
+
+@keyframes auroraSpin1 { to { transform: rotate(360deg); } }
+@keyframes auroraSpin2 { to { transform: rotate(360deg); } }
+
+/* ============================================================
+   HEX GRID
+   ============================================================ */
+.hex-grid {
+  position: fixed;
+  inset: 0;
+  z-index: -7;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='98'%3E%3Cpath d='M28 2 L54 17 L54 47 L28 62 L2 47 L2 17 Z' fill='none' stroke='rgba(0,212,170,0.055)' stroke-width='0.8'/%3E%3Cpath d='M28 52 L54 67 L54 97 L28 112 L2 97 L2 67 Z' fill='none' stroke='rgba(0,212,170,0.055)' stroke-width='0.8'/%3E%3C/svg%3E");
+  background-size: 56px 98px;
+  mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 20%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 20%, transparent 80%);
+  animation: gridDrift 120s linear infinite;
+}
+
+@keyframes gridDrift {
+  from { background-position: 0 0; }
+  to   { background-position: 112px 196px; }
+}
+
+/* ============================================================
+   PLASMA ORBS  (5 orbs injected by AnimatedBackground component)
+   ============================================================ */
+.orbs-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -6;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.orb { position: absolute; border-radius: 50%; filter: blur(80px); mix-blend-mode: screen; will-change: transform, opacity; }
+
+.orb-1 { width:600px;height:600px;top:-10%;left:-8%;   background:radial-gradient(circle,rgba(0,212,170,0.35) 0%,transparent 65%);  animation:orbDrift1 22s ease-in-out infinite; }
+.orb-2 { width:500px;height:500px;top:30%; right:-10%; background:radial-gradient(circle,rgba(245,166,35,0.30) 0%,transparent 65%); animation:orbDrift2 28s ease-in-out infinite; }
+.orb-3 { width:420px;height:420px;bottom:-8%;left:25%; background:radial-gradient(circle,rgba(124,58,237,0.32) 0%,transparent 65%); animation:orbDrift3 19s ease-in-out infinite; }
+.orb-4 { width:340px;height:340px;top:55%;left:40%;    background:radial-gradient(circle,rgba(110,231,247,0.22) 0%,transparent 65%);animation:orbDrift4 34s ease-in-out infinite; }
+.orb-5 { width:280px;height:280px;top:15%;left:55%;    background:radial-gradient(circle,rgba(255,107,107,0.20) 0%,transparent 65%);animation:orbDrift5 25s ease-in-out infinite; }
+
+@keyframes orbDrift1 { 0%,100%{transform:translate(0,0px) scale(1.00);opacity:.75} 33%{transform:translate(60px,-50px) scale(1.08);opacity:1} 66%{transform:translate(-40px,40px) scale(.95);opacity:.85} }
+@keyframes orbDrift2 { 0%,100%{transform:translate(0,0px) scale(1.00);opacity:.70} 40%{transform:translate(-80px,60px) scale(1.10);opacity:.95} 70%{transform:translate(50px,-30px) scale(.92);opacity:.80} }
+@keyframes orbDrift3 { 0%,100%{transform:translate(0,0px) scale(1.00);opacity:.70} 50%{transform:translate(70px,-60px) scale(1.12);opacity:1} }
+@keyframes orbDrift4 { 0%,100%{transform:translate(0,0px) scale(1.00);opacity:.50} 45%{transform:translate(-50px,70px) scale(1.06);opacity:.80} 80%{transform:translate(30px,-20px) scale(.97);opacity:.60} }
+@keyframes orbDrift5 { 0%,100%{transform:translate(0,0px) scale(1.00);opacity:.55} 35%{transform:translate(40px,50px) scale(1.08);opacity:.85} 75%{transform:translate(-30px,-40px) scale(.94);opacity:.65} }
+
+/* ============================================================
+   SHOOTING STARS
+   ============================================================ */
+.stars-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -5;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 2px; height: 2px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  animation: starShoot var(--dur,7s) linear var(--delay,0s) infinite;
+  top: var(--top,15%); left: var(--left,10%);
+  opacity: 0;
+}
+.star::after {
+  content: "";
+  position: absolute;
+  top: 50%; right: 2px;
+  transform: translateY(-50%);
+  width: var(--tail,90px); height: 1.5px;
+  background: linear-gradient(to left, rgba(0,212,170,0.8), rgba(255,255,255,0.4), transparent);
+  border-radius: 2px;
+}
+
+@keyframes starShoot {
+  0%   { opacity:0;   transform:translate(0px,0px); }
+  4%   { opacity:1; }
+  75%  { opacity:.5; }
+  100% { opacity:0;   transform:translate(var(--tx,250px),var(--ty,130px)); }
+}
+
+/* ============================================================
+   SCANLINE SHIMMER
+   ============================================================ */
+.scanline {
+  position: fixed;
+  inset: 0;
+  z-index: -4;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 3px,
+    rgba(0,212,170,0.011) 3px, rgba(0,212,170,0.011) 4px
+  );
+  animation: scanMove 9s linear infinite;
+}
+@keyframes scanMove { from{background-position:0 0} to{background-position:0 400px} }
+
+/* ============================================================
+   VIGNETTE
+   ============================================================ */
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background: radial-gradient(ellipse 110% 110% at 50% 50%, transparent 35%, rgba(2,11,18,0.70) 100%);
+  animation: vignettePulse 14s ease-in-out infinite alternate;
+}
+@keyframes vignettePulse { from{opacity:.7} to{opacity:1} }
+
+/* ============================================================
+   SECTION BACKGROUNDS — Portfolio & Pricing
+   ============================================================ */
+
+/* Portfolio — Deep Ocean Teal */
+#portfolio {
+  position: relative;
+  background: transparent;
+}
+#portfolio::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 130% 65% at 10% 30%, rgba(0,180,140,0.28) 0%, transparent 60%),
+    radial-gradient(ellipse 110% 70% at 90% 70%, rgba(6,182,212,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse  80% 50% at 50% 50%, rgba(0,212,170,0.08) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(0,22,28,0.90) 0%, rgba(2,16,22,0.94) 50%, rgba(0,22,28,0.90) 100%);
+  border-top:    1px solid rgba(0,212,170,0.18);
+  border-bottom: 1px solid rgba(0,212,170,0.15);
+}
+#portfolio > * { position: relative; z-index: 1; }
+#portfolio::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(0,212,170,0.22) 0px, transparent 90px),
+    linear-gradient(  0deg, rgba(0,212,170,0.14) 0px, transparent 70px);
+}
+
+/* Pricing — Molten Gold */
+#pricing {
+  position: relative;
+  background: transparent;
+}
+#pricing::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 140% 70% at 85% 15%, rgba(245,166,35,0.26) 0%, transparent 60%),
+    radial-gradient(ellipse 120% 65% at 15% 85%, rgba(255,107,107,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse  80% 55% at 50% 50%, rgba(245,166,35,0.10) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(18,10,2,0.92) 0%, rgba(12,7,1,0.95)   50%, rgba(18,10,2,0.92) 100%);
+  border-top:    1px solid rgba(245,166,35,0.20);
+  border-bottom: 1px solid rgba(245,166,35,0.16);
+}
+#pricing > * { position: relative; z-index: 1; }
+#pricing::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(245,166,35,0.25) 0px, transparent 90px),
+    linear-gradient(  0deg, rgba(245,166,35,0.16) 0px, transparent 70px);
+}
+
+/* About — subtle violet */
+#about { position: relative; background: transparent; }
+#about::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 100% 60% at 90% 30%, rgba(124,58,237,0.16) 0%, transparent 55%),
+    linear-gradient(180deg, rgba(6,4,20,0.78) 0%, rgba(4,3,16,0.82) 100%);
+}
+#about > * { position: relative; z-index: 1; }
+
+/* ============================================================
+   GLASS VARIANTS
+   ============================================================ */
+.glass {
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    0 0 0 0.5px rgba(0,212,170,0.05),
+    0 16px 56px rgba(0,0,0,0.65),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+#pricing .glass {
+  background: rgba(245,166,35,0.045);
+  border-color: rgba(245,166,35,0.14);
+  box-shadow:
+    0 0 0 0.5px rgba(245,166,35,0.09),
+    0 16px 56px rgba(0,0,0,0.70),
+    inset 0 1px 0 rgba(245,166,35,0.09);
+}
+
+#portfolio .glass {
+  background: rgba(0,212,170,0.04);
+  border-color: rgba(0,212,170,0.13);
+  box-shadow:
+    0 0 0 0.5px rgba(0,212,170,0.09),
+    0 16px 56px rgba(0,0,0,0.70),
+    inset 0 1px 0 rgba(0,212,170,0.09);
+}
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.gradient-text {
+  background: linear-gradient(
+    120deg,
+    #2563eb,
+    #4f46e5,
+    #7c3aed,
+    #ec4899,
+    #f59e0b,
+    #2563eb
+  );
+
+  background-size: 300% auto;
+  animation: textGradient 8s ease-in-out infinite;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes textGradient {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: 0% center;
+  }
+}
+.gradient-text {
+  position: relative;
+}
+
+.gradient-text::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+
+  background: inherit;
+  background-size: inherit;
+  animation: inherit;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  filter: blur(20px);
+  opacity: 0.5;
+}
+.glow {
+  box-shadow: 0 0 24px rgba(0,212,170,0.40), 0 0 60px rgba(0,212,170,0.15);
+}
+
+/* Popular pricing card override — gold glow */
+#pricing .border-blue-500\/50 {
+  border-color: rgba(245,166,35,0.55) !important;
+  box-shadow: 0 0 32px rgba(245,166,35,0.38), 0 0 80px rgba(245,166,35,0.14), inset 0 1px 0 rgba(245,166,35,0.12) !important;
+}
+#pricing .bg-blue-600 { background-color: #b8760a !important; }
+#pricing .hover\:bg-blue-700:hover { background-color: #9a620a !important; }
+
+/* Hero ambient glows */
+.hero-glow-left {
+  position: absolute; top: 20%; left: -12%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(0,212,170,0.22) 0%, transparent 65%);
+  border-radius: 50%; filter: blur(70px);
+  animation: heroPulse 10s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+.hero-glow-right {
+  position: absolute; bottom: 15%; right: -10%;
+  width: 440px; height: 440px;
+  background: radial-gradient(circle, rgba(245,166,35,0.20) 0%, transparent 65%);
+  border-radius: 50%; filter: blur(70px);
+  animation: heroPulse 13s ease-in-out infinite alternate-reverse;
+  pointer-events: none;
+}
+@keyframes heroPulse {
+  from { transform: scale(1.00) translateY(0px);  opacity: .70; }
+  to   { transform: scale(1.15) translateY(-20px); opacity: 1.0; }
+}
