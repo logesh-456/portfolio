@@ -493,21 +493,9 @@ const Contact = () => {
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setResult('Checking offer...');
+    setResult('Sending…');
 
     const formData = new FormData(event.currentTarget);
-    const coupon = (formData.get('coupon') as string || '').toUpperCase();
-
-    let finalPrice = '₹4999';
-
-    if (coupon === 'GENZ999') {
-      finalPrice = '₹999';
-      setResult('🎉 Coupon Applied! You unlocked ₹999 offer!');
-    } else if (coupon !== '') {
-      setResult('⚠️ Invalid coupon. Standard price applies.');
-    }
-
-    formData.append('final_price', finalPrice);
     formData.append('access_key', 'e3668748-5c9f-461e-8084-6fb18ba6c7bd');
 
     try {
@@ -519,13 +507,13 @@ const Contact = () => {
       const data = await response.json();
 
       if (data.success) {
-        setResult(`✅ Request sent! Our team will contact you. Price: ${finalPrice}`);
+        setResult('Form Submitted Successfully!');
         (event.target as HTMLFormElement).reset();
       } else {
         setResult(data.message);
       }
     } catch {
-      setResult('❌ Submit failed. Try again.');
+      setResult('Submit failed. Please try again.');
     }
   };
 
@@ -541,86 +529,100 @@ const Contact = () => {
             </h2>
 
             <p className="text-neutral-400 mb-10 text-lg">
-              Get your business website in 2–3 days with our launch offer 🚀
+              Have a project in mind? Reach out and let's discuss how we can help your business grow.
             </p>
 
-            {/* OFFER BOX */}
-            <div className="p-6 rounded-2xl bg-gradient-to-r from-pink-500/10 to-orange-500/10 border border-pink-500/20">
-              <h3 className="text-lg font-bold mb-2">🔥 Launch Offer</h3>
-              <p className="text-neutral-300">
-                ₹4999 → <span className="text-green-400 font-bold text-xl">₹999</span>
-              </p>
-              <p className="text-sm text-neutral-500 mt-1">
-                Use code <span className="text-white font-semibold">GENZ999</span> (First 100 clients only)
-              </p>
+            <div className="space-y-6">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 glass rounded-2xl flex items-center justify-center text-blue-400">
+                  <Github size={24} />
+                </div>
+                <div>
+                  <div className="text-sm text-neutral-500">GitHub</div>
+                  <a
+                    href="https://github.com/logesh-456"
+                    className="hover:text-blue-400 transition-colors"
+                  >
+                    Visit
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 glass rounded-2xl flex items-center justify-center text-blue-400">
+                  <Linkedin size={24} />
+                </div>
+                <div>
+                  <div className="text-sm text-neutral-500">LinkedIn</div>
+                  <a
+                    href="https://www.linkedin.com/in/logesh-a-a84303364"
+                    className="hover:text-blue-400 transition-colors"
+                  >
+                    Visit
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* FORM */}
+          {/* RIGHT FORM */}
           <div className="glass p-10 rounded-3xl">
             <form className="space-y-6" onSubmit={onSubmit}>
 
-              {/* NAME + EMAIL */}
               <div className="grid grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-sm text-neutral-400">Name</label>
+                  <label className="text-sm font-medium text-neutral-400">Name</label>
                   <input
                     name="name"
+                    type="text"
                     required
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3"
-                    placeholder="Your Name"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                    placeholder="Logesh"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm text-neutral-400">Email</label>
+                  <label className="text-sm font-medium text-neutral-400">Email</label>
                   <input
                     name="email"
                     type="email"
                     required
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
                     placeholder="you@email.com"
                   />
                 </div>
               </div>
 
-              {/* COUPON */}
               <div className="space-y-2">
-                <label className="text-sm text-neutral-400">Coupon Code</label>
-                <input
-                  name="coupon"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 uppercase"
-                  placeholder="Enter GENZ999"
-                />
-              </div>
-
-              {/* MESSAGE */}
-              <div className="space-y-2">
-                <label className="text-sm text-neutral-400">Message</label>
+                <label className="text-sm font-medium text-neutral-400">Message</label>
                 <textarea
                   name="message"
                   rows={4}
                   required
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3"
-                  placeholder="Tell me about your business (Gym, Restaurant, etc.)..."
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500 transition-colors"
+                  placeholder="Tell me about your project…"
                 />
               </div>
 
-              {/* BUTTON */}
               <button
                 type="submit"
-                className="w-full py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 font-bold transition-all"
+                className="w-full py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 font-bold transition-all glow"
               >
-                Claim Offer 🚀
+                Send Message
               </button>
 
-              {/* RESULT */}
+              {/* FIXED ERROR HERE */}
               {result && (
-                <p className="text-center text-sm mt-4 text-green-400">
+                <p
+                  className={`text-center text-sm mt-4 ${
+                    result.includes('Successfully')
+                      ? 'text-green-400'
+                      : 'text-neutral-400'
+                  }`}
+                >
                   {result}
                 </p>
               )}
-
             </form>
           </div>
 
